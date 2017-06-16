@@ -10,6 +10,7 @@ zoneNoToVehicle = [];
 zoneActive = [];
 spawnTriggers = [];
 zoneNoToBuildings = []; //format ...[object,[position]]...
+zoneOnZoneEnterTime = [];
 _buildingType = ["House", "Building"];
 {
 zoneActive append [false];
@@ -96,6 +97,8 @@ _d = [];
 }forEach spawnLocs;
 interaction_points = _d;
 publicVariable "interaction_points";
+interaction_points_action = [];
+publicVariable "interaction_points_action";
 _directionOfFirstStartZone = random 360;
 _directionOfStartZones     = [_directionOfFirstStartZone,_directionOfFirstStartZone +180];
 {

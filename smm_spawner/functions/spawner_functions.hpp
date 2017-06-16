@@ -35,4 +35,7 @@ class spawnerDeterminePossibleTargets{};
 class spawnerPatrol{};
 class spawnerSetSkill{};
 class spawnerUpdateMarkerAlpha{};
+
+class spawnerConquerBuy{};
+class getZoneNoPrice{};
 class zoneEquals{};

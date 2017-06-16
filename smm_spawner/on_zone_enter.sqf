@@ -7,6 +7,8 @@ if!([_no,_sideEntered] call smm_fnc_isTarget) exitWith {};
 //only activate inactive zones
 if!(zoneActive select _no) then{
     diag_log (format ["Inactive Zone %1 was entered by %2",_no,_sideEntered]);
+	
+	zoneOnZoneEnterTime set [_no, [(round serverTime)]];
     [_no,_sideEntered] spawn {
         _no          = _this select 0;
         _sideEntered = _this select 1;
@@ -72,6 +74,8 @@ if!(zoneActive select _no) then{
 				_allUnits pushBack _unit;
             }forEach _units;
 			
+			(zoneOnZoneEnterTime select _no) set [1,(count _allUnits)];
+			
 			diag_log "Finished generating infantry";
 			
             //Finished creating infantry
@@ -120,6 +124,14 @@ if!(zoneActive select _no) then{
                 _allVehicles pushBack _veh;
             }forEach _vehicles;
             
+			(zoneOnZoneEnterTime select _no) set [2,(count _allVehicles)];
+			
+			// TODO delete only for testing
+			//------
+			(zoneOnZoneEnterTime select _no) set [3,_no call smm_fnc_getZoneNoPrice];
+			//------ 
+			
+			
             //Finished creating vehicles
             
             //Creating waypoints

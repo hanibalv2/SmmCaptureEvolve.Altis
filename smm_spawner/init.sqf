@@ -87,7 +87,23 @@ diag_log ("Started spawner with autodetectHeadless=" + (str autodetectHeadless)+
     waitUntil{alive player};
     sleep 30;
     {
-        _x addAction [str_conquer,smm_fnc_spawnerConquer,_forEachIndex];
+        _x addAction [str_conquer,smm_fnc_spawnerConquer,_foreachindex];	
+		private _actionIndexA			= _x addAction [str_conquer_buy,smm_fnc_spawnerConquerBuy,_foreachindex];
+		interaction_points_action set [_foreachindex,_actionIndexA];
+		
     }forEach interaction_points;
     [] call smm_fnc_spawnerUpdateMarkerAlpha;
+};
+
+while{true}do{
+sleep 60;	
+	{	
+		if(zoneActive select _foreachindex) then{
+			_x removeAction(interaction_points_action select _foreachindex);
+			private _price 		=_foreachindex call smm_fnc_getZoneNoPrice;
+			private _formated 	= format [str_conquer_buy, _price];
+			private _actionIndexB 			=_x addAction [_formated,smm_fnc_spawnerConquerBuy,[_forEachIndex,_price]];
+			interaction_points_action set [_foreachindex,_actionIndexB];
+		};
+	}forEach interaction_points;
 };
